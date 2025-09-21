@@ -44,7 +44,9 @@ export function findQuestion(
  * Hint: use filter
  */
 export function removeQuestion(questions: Question[], id: number): Question[] {
-    return [];
+    const filteredID = questions.filter((q: Question): boolean => q.id != id);
+
+    return filteredID;
 }
 
 /***
@@ -53,7 +55,9 @@ export function removeQuestion(questions: Question[], id: number): Question[] {
  * Do not modify the input array.
  */
 export function getNames(questions: Question[]): string[] {
-    return [];
+    const questionNames = (q: Question): string => q.name;
+    const names = questions.map(questionNames);
+    return names;
 }
 
 /**
