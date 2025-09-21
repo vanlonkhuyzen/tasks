@@ -124,7 +124,12 @@ export function renameQuestionById(
     targetId: number,
     newName: string,
 ): Question[] {
-    return [];
+    const modifiedQuestions = questions.map(
+        (q: Question): Question =>
+            q.id === targetId ? { ...q, name: newName } : q,
+    );
+
+    return modifiedQuestions;
 }
 
 /**
@@ -145,5 +150,21 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string,
 ): Question[] {
-    return [];
+    function updateOptions(options: string[]): string[] {
+        if (targetOptionIndex === -1) {
+            const option = [...options, newOption];
+            return option;
+        } else {
+            const modOptions = [...options];
+            modOptions[targetOptionIndex] = newOption;
+            return modOptions;
+        }
+    }
+    const modifiedQuestion = questions.map((q: Question): Question => {
+        if (q.id !== targetId) return q;
+        const changeOption = { ...q, options: updateOptions(q.options) };
+        return changeOption;
+    });
+
+    return modifiedQuestion;
 }
